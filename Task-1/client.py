@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 11 14:59:36 2024
 
-@author: moham
 """
+@author: mohamed khairy
+"""
+
 
 from socket import *
 import threading as th
