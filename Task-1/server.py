@@ -1,8 +1,6 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Mar 11 15:00:16 2024
 
-@author: moham
+"""
+@author: mohamed khairy
 """
 
 from socket import *
