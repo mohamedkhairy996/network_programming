@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-@author: ChatRoom ==> Client
+@author: mohamed khairy
 """
 
 import socket
