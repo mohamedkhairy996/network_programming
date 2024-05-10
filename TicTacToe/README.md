@@ -1,2 +1,2 @@
-#Tic Tac Toe Game
-##with reset button
+# Tic Tac Toe Game
+## with reset button
