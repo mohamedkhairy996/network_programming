@@ -5,7 +5,7 @@
 
 
 from socket import *
-import threading as th
+
 
 chat = socket(AF_INET, SOCK_STREAM)
 server_ip = '127.0.0.1'
