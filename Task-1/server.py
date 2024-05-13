@@ -4,7 +4,7 @@
 """
 
 from socket import *
-import threading as th
+
 
 server = socket(AF_INET, SOCK_STREAM)
 server_ip = '127.0.0.1'
@@ -15,25 +15,33 @@ server.listen()
 
 print("Server is listening...")
 
-def handle_client(client_socket):
-    while True:
-        try:
-            client_message = client_socket.recv(2048).decode('UTF-8')
-            if not client_message:
-                break
-            print('Client message:', client_message)
-            if client_message == 'close':
-                break
-        except ConnectionResetError:
-            print("Connection closed by client.")
-            break
-
-    client_socket.close()
+client_socket, addr = server.accept()
+print(f"Connection from {addr} has been established.")
 
 while True:
-    client_socket, addr = server.accept()
-    print(f"Connection from {addr} has been established.")
-    client_handler = th.Thread(target=handle_client, args=(client_socket,))
-    client_handler.start()
+    # Receiving the length of the message 
+    length_data = client_socket.recv(10)
+    length = int(length_data.decode('utf-8'))
 
-input()
+    # Receiving the message with variable length
+    received_message = client_socket.recv(length).decode('utf-8')
+    print("Client: " + received_message)
+
+    # Prompting the server for a response
+    server_response = input('Server: ')
+
+    # Checking if the server wants to quit
+    if server_response == 'q':
+        print('connection closed')
+        client_socket.close()
+        break
+
+    # Sending the length of the message (fixed size: 10 bytes)
+    message_data = server_response.encode('utf-8')
+    message_length = str(len(message_data)).zfill(10).encode('utf-8')
+    client_socket.send(message_length)
+
+    # Sending the actual message
+    client_socket.send(message_data)
+
+client_socket.close()
